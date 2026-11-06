@@ -18,13 +18,15 @@ while True:
     # Usamos una variable distinta para no destruir la imagen a color
     frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # Mostrar el video original en ventana
-    cv2.imshow('Original', frame)
+    # Suavizar la imagen con suavizado gaussiano
+    blur = cv2.GaussianBlur(frame_gray, (7, 7), 0)
 
     # Aplicamos la detección de bordes sobre la imagen en grises
-    edges = cv2.Canny(frame_gray, 100, 200)
+    edges = cv2.Canny(blur, 100, 200)
 
-    cv2.imshow('Edges', edges)
+    # Mostrar el video original en ventana
+    cv2.imshow('Original', frame)
+    cv2.imshow('Bordes con blur', edges)
 
     # Esperamos la tecla Esc para detener la ejecución
     k = cv2.waitKey(5) & 0xFF
